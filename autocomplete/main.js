@@ -17,7 +17,7 @@ async function main() {
 
   function lookup(term) {
     const stmt = db.prepare(`
-    SELECT written_rep, trans_list, sense_list
+    SELECT written_rep, trans_list, sense_list, part_of_speech
     FROM (
         SELECT DISTINCT written_rep
         FROM search_trans
@@ -40,7 +40,7 @@ async function main() {
           type: "text",
           detail: translation,
           apply: translation,
-          info: row.sense_list,
+          info: "[" + row.part_of_speech + "] " + row.sense_list,
         });
       });
     }
